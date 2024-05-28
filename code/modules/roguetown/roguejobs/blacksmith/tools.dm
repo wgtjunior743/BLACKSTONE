@@ -11,7 +11,7 @@
 	wlength = 10
 	slot_flags = ITEM_SLOT_HIP
 	w_class = WEIGHT_CLASS_NORMAL
-	associated_skill = /datum/skill/mining
+	associated_skill = /datum/skill/axesmaces
 	smeltresult = /obj/item/ingot/iron
 
 /obj/item/rogueweapon/hammer/attack_obj(obj/attacked_object, mob/living/user)
