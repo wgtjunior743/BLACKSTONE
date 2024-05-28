@@ -35,13 +35,26 @@
 	layer = FLY_LAYER
 	var/log_amount = 10
 
-/obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
+//trees
+/obj/structure/flora/tree
+	name = "tree"
+	desc = ""
+	density = TRUE
+	pixel_x = -16
+	layer = FLY_LAYER
+	var/log_amount = 10
+
+/obj/structure/flora/tree/attackby(obj/item/W, mob/user, params, mob/living/user)
+var/mob/living/lumberjacker = user
+var lumberjackskill = 0
+
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
-		if(W.get_sharpness() && W.force > 0)
+		lumberjackskill = lumberjacker.mind.get_skill_level(/datum/skill/labor/lumberjacking)
+		if(W.get_sharpness() > 0 && W.force * lumberjackskill != 0 )
 			if(W.hitsound)
 				playsound(get_turf(src),  W.hitsound, 100, FALSE, FALSE)
 			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>I begin to cut down [src] with [W].</span>", "<span class='hear'>I hear the sound of sawing.</span>")
-			if(do_after(user, 1000/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
+			if(do_after(user, 500/lumberjackskill, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
 				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>I fell [src] with the [W].</span>", "<span class='hear'>I hear the sound of a tree falling.</span>")
 				playsound(get_turf(src), 'sound/blank.ogg', 100 , FALSE, FALSE)
 				for(var/i=1 to log_amount)
@@ -51,7 +64,21 @@
 				S.name = "[name] stump"
 
 				qdel(src)
+		else
+			if(W.hitsound)
+				playsound(get_turf(src),  W.hitsound, 100, FALSE, FALSE)
+			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>I begin to cut down [src] with [W].</span>", "<span class='hear'>I hear the sound of sawing.</span>")
+			if(do_after(user, 1500/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
+				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>I fell [src] with the [W].</span>", "<span class='hear'>I hear the sound of a tree falling.</span>")
+				playsound(get_turf(src), 'sound/blank.ogg', 100 , FALSE, FALSE)
+				for(var/i=1 to log_amount)
+					new /obj/item/grown/log/tree(get_turf(src))
 
+				var/obj/structure/flora/stump/S = new(loc)
+				S.name = "[name] stump"
+
+				qdel(src)
+			
 	else
 		return ..()
 
@@ -462,18 +489,3 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize()
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
