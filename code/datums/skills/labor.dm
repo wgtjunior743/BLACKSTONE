@@ -8,6 +8,9 @@
 /datum/skill/labor/mining
 	name = "Mining"
 
+/datum/skill/labor/lumberjacking
+	name = "Lumberjacking"
+
 /datum/skill/labor/taming
 	name = "Taming"
 
