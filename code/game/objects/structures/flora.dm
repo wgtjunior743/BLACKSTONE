@@ -41,7 +41,7 @@
 
     if (log_amount && (!(flags_1 & NODECONSTRUCT_1)))
         lumberjackskill = lumberjacker.mind.get_skill_level(/datum/skill/labor/lumberjacking)
-        if (W.get_sharpness() > 0 && W.force * lumberjackskill != 0)
+        if (W.get_sharpness() > 0 && lumberjackskill > 0)
             if (W.hitsound)
                 playsound(get_turf(src), W.hitsound, 100, FALSE, FALSE)
             user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>", 
@@ -60,6 +60,7 @@
                 
                 qdel(src)
         else
+			if(W.get_sharpness() > 0 && lumberjackskill <= 0)
             if (W.hitsound)
                 playsound(get_turf(src), W.hitsound, 100, FALSE, FALSE)
             user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>", 
