@@ -4,7 +4,7 @@
 //		maxrogfat = 5
 
 	if(world.time > last_fatigued + 50) //regen fatigue
-		var/added = rogstam / maxrogstam
+		var/added = rogstam / maxrogstam 
 		added = round(-10+ (added*-40))
 		if(HAS_TRAIT(src, TRAIT_MISSING_NOSE))
 			added = round(added * 0.5, 1)
@@ -16,7 +16,7 @@
 	update_health_hud()
 
 /mob/living/proc/update_rogstam()
-	maxrogstam = STAEND * 100
+	maxrogstam = (STAEND + (mind.get_skill_level(/datum/skill/misc/athletics)/2 ) ) * 100 
 	if(cmode)
 		if(!HAS_TRAIT(src, RTRAIT_BREADY))
 			rogstam_add(-2)
