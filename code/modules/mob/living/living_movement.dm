@@ -50,6 +50,7 @@
 			mod = CONFIG_GET(number/movedelay/walk_delay)
 		if(MOVE_INTENT_RUN)
 			mod = CONFIG_GET(number/movedelay/run_delay)
+			mind.adjust_experience(/datum/skill/misc/athletics, (STAINT*0.1))
 		if(MOVE_INTENT_SNEAK)
 			mod = 6
 	if(STASPD < 6)
