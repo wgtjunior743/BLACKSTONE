@@ -276,7 +276,8 @@
 			H.Stun(20)
 			H.Paralyze(20)
 			to_chat(H, "<span class='userdanger'>I'm hit by my BANE!</span>")
-
+			src.last_used = world.time
+	
 
 /obj/item/rogueweapon/huntingknife/stoneknife
 	possible_item_intents = list(/datum/intent/dagger/cut,/datum/intent/dagger/chop)
